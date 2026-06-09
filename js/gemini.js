@@ -1,19 +1,20 @@
-const GEMINI_API_KEY = 'AQ.Ab8RN6Kw-MCfSij17uRPxQyGzvV7vB70-bBm3qw8b-TVx9mzCg';
+const API_KEY = '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';
 
 async function callGemini(prompt) {
   try {
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent`,
+      'https://openrouter.ai/api/v1/chat/completions',
       {
         method: 'POST',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          'x-goog-api-key': GEMINI_API_KEY
+          'Authorization': `Bearer ${API_KEY}`,
+          'HTTP-Referer': 'https://naseehmk.github.io',
+          'X-Title': 'ResumeAI'
         },
         body: JSON.stringify({
-          contents: [{
-            parts: [{ text: prompt }]
-          }]
+          model: 'google/gemini-2.0-flash-exp:free',
+          messages: [{ role: 'user', content: prompt }]
         })
       }
     );
@@ -25,10 +26,10 @@ async function callGemini(prompt) {
     }
 
     const data = await response.json();
-    return data.candidates[0].content.parts[0].text;
+    return data.choices[0].message.content;
 
   } catch (error) {
-    console.error('Gemini API Error:', error);
+    console.error('API Error:', error);
     throw error;
   }
 }
