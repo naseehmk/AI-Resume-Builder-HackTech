@@ -1,0 +1,195 @@
+/* =============================================
+   RESUME BUILDER PAGE STYLES
+============================================= */
+
+.builder-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+}
+
+/* --- FORM PANEL --- */
+.form-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  height: fit-content;
+}
+
+/* --- PREVIEW PANEL --- */
+.preview-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.preview-header .panel-title { margin-bottom: 0; }
+
+.btn-download {
+  background: var(--bg-card);
+  border: 1px solid var(--purple-border);
+  color: var(--purple-bright);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.btn-download:hover { background: var(--purple-glow); }
+
+/* --- RESUME OUTPUT --- */
+.resume-output {
+  background: #fff;
+  color: #1a1a2e;
+  border-radius: var(--radius);
+  padding: 2rem;
+  font-family: var(--font-body);
+}
+
+.resume-head {
+  border-bottom: 2px solid #7c3aed;
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+}
+.resume-head h1 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  letter-spacing: -0.02em;
+}
+.preview-role {
+  font-size: 0.95rem;
+  color: #7c3aed;
+  font-weight: 500;
+  margin-top: 0.2rem;
+}
+.preview-contacts {
+  font-size: 0.78rem;
+  color: #555;
+  margin-top: 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
+}
+
+.resume-section { margin-bottom: 1.25rem; }
+.resume-sec-title {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #7c3aed;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.6rem;
+}
+.resume-section p {
+  font-size: 0.88rem;
+  color: #333;
+  line-height: 1.65;
+}
+
+.skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.skill-tag {
+  background: #f3e8ff;
+  color: #7c3aed;
+  font-size: 0.78rem;
+  font-weight: 500;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+}
+
+.edu-item { margin-bottom: 0.75rem; }
+.edu-item h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1a1a2e;
+}
+.edu-item p { font-size: 0.82rem; color: #666; }
+
+.exp-item { margin-bottom: 0.75rem; }
+.exp-item p {
+  font-size: 0.88rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.achieve-item {
+  font-size: 0.85rem;
+  color: #333;
+  padding-left: 1rem;
+  position: relative;
+  margin-bottom: 0.3rem;
+}
+.achieve-item::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #7c3aed;
+}
+
+/* --- AI SUGGESTIONS --- */
+.ai-suggestions {
+  margin-top: 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--purple-border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+.ai-suggestions h3 {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--purple-bright);
+  margin-bottom: 0.75rem;
+}
+.suggestion-item {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  padding: 0.4rem 0;
+  padding-left: 1rem;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+.suggestion-item:last-child { border-bottom: none; }
+.suggestion-item::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--purple-bright);
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .builder-container {
+    grid-template-columns: 1fr;
+  }
+  .preview-panel {
+    position: static;
+    max-height: none;
+  }
+}
