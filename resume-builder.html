@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume Builder | ResumeAI</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/resume.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">⚡ ResumeAI</a>
+    <div class="nav-links">
+      <a href="resume-builder.html" class="active">Build Resume</a>
+      <a href="interview-prep.html">Interview Prep</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="resume-builder.html" onclick="toggleMenu()">Build Resume</a>
+    <a href="interview-prep.html" onclick="toggleMenu()">Interview Prep</a>
+  </div>
+
+
+  <div class="page-header">
+    <p class="section-eyebrow">AI Resume Builder</p>
+    <h1>Build your resume in seconds</h1>
+    <p class="page-sub">Fill in the form below and Gemini AI will generate a professional resume summary tailored to your profile.</p>
+  </div>
+
+ 
+  <div class="builder-container">
+
+    <div class="form-panel">
+      <h2 class="panel-title">Your Details</h2>
+
+      <div class="form-section">
+        <h3 class="form-section-title">Personal Info</h3>
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" placeholder="e.g. Naseeh Manikkoth"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="your@email.com"/>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" placeholder="+91 XXXXX XXXXX"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" placeholder="e.g. Gurugram, India"/>
+          </div>
+          <div class="form-group">
+            <label for="linkedin">LinkedIn URL</label>
+            <input type="text" id="linkedin" placeholder="linkedin.com/in/yourname"/>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-section">
+        <h3 class="form-section-title">Target Role</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="jobRole">Job Role</label>
+            <input type="text" id="jobRole" placeholder="e.g. Frontend Developer"/>
+          </div>
+          <div class="form-group">
+            <label for="experience">Experience Level</label>
+            <select id="experience">
+              <option value="">Select level</option>
+              <option value="fresher">Fresher / Intern</option>
+              <option value="junior">Junior (0–2 years)</option>
+              <option value="mid">Mid-level (2–5 years)</option>
+              <option value="senior">Senior (5+ years)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3 class="form-section-title">Skills</h3>
+        <div class="form-group">
+          <label for="skills">Technical Skills</label>
+          <input type="text" id="skills" placeholder="e.g. HTML, CSS, JavaScript, React, Python"/>
+        </div>
+      </div>
+
+ 
+      <div class="form-section">
+        <h3 class="form-section-title">Education</h3>
+        <div class="form-group">
+          <label for="degree">Degree & Major</label>
+          <input type="text" id="degree" placeholder="e.g. BTech in Computer Science"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="college">College / University</label>
+            <input type="text" id="college" placeholder="e.g. Amity University Haryana"/>
+          </div>
+          <div class="form-group">
+            <label for="gradYear">Graduation Year</label>
+            <input type="text" id="gradYear" placeholder="e.g. 2026"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="cgpa">CGPA / Percentage</label>
+          <input type="text" id="cgpa" placeholder="e.g. 7.9 CGPA"/>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3 class="form-section-title">Experience / Projects</h3>
+        <div class="form-group">
+          <label for="workExp">Work Experience or Projects</label>
+          <textarea id="workExp" rows="4" placeholder="Describe your work experience or key projects. e.g. Built a student management system using C++. Interned at HACKTECH as a Junior Web Developer..."></textarea>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3 class="form-section-title">Achievements (Optional)</h3>
+        <div class="form-group">
+          <label for="achievements">Certifications & Achievements</label>
+          <textarea id="achievements" rows="3" placeholder="e.g. Responsive Web Design Certificate - freeCodeCamp, 97% in Class 12..."></textarea>
+        </div>
+      </div>
+
+      <button class="btn-primary btn-full" onclick="generateResume()">
+        ✦ Generate Resume with AI
+      </button>
+    </div>
+
+
+    <div class="preview-panel">
+      <div class="preview-header">
+        <h2 class="panel-title">Resume Preview</h2>
+        <button class="btn-download" onclick="downloadPDF()" id="downloadBtn" style="display:none;">📥 Download PDF</button>
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">📄</div>
+        <p>Fill in your details and click<br/><strong>"Generate Resume with AI"</strong></p>
+        <p class="empty-sub">Your resume will appear here</p>
+      </div>
+
+      <div class="loading-state" id="loadingState" style="display:none;">
+        <div class="loader"></div>
+        <p>Gemini AI is crafting your resume...</p>
+      </div>
+
+      <div class="resume-output" id="resumeOutput" style="display:none;">
+
+        <div class="resume-head">
+          <h1 id="previewName">Your Name</h1>
+          <p id="previewRole" class="preview-role">Target Role</p>
+          <div class="preview-contacts" id="previewContacts"></div>
+        </div>
+
+        <div class="resume-section">
+          <h2 class="resume-sec-title">Professional Summary</h2>
+          <p id="previewSummary"></p>
+        </div>
+
+        <div class="resume-section">
+          <h2 class="resume-sec-title">Skills</h2>
+          <div id="previewSkills" class="skills-tags"></div>
+        </div>
+
+        <div class="resume-section">
+          <h2 class="resume-sec-title">Education</h2>
+          <div id="previewEducation"></div>
+        </div>
+
+        <div class="resume-section" id="expSection">
+          <h2 class="resume-sec-title">Experience & Projects</h2>
+          <div id="previewExperience"></div>
+        </div>
+
+        <div class="resume-section" id="achieveSection">
+          <h2 class="resume-sec-title">Achievements & Certifications</h2>
+          <div id="previewAchievements"></div>
+        </div>
+
+        <div class="ai-suggestions" id="aiSuggestions">
+          <h3>✦ AI Suggestions</h3>
+          <div id="suggestionsContent"></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <p class="footer-credit">Built by <strong>Naseeh Manikkoth</strong> during the <strong>HACKTECH</strong> Junior Web Developer Internship Program</p>
+    <p class="footer-copy">© 2025 ResumeAI · Powered by Google Gemini</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/gemini.js"></script>
+  <script src="js/resume.js"></script>
+</body>
+</html>
