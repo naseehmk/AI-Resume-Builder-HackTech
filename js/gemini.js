@@ -1,5 +1,6 @@
-const GEMINI_API_KEY = 'AQ.Ab8RN6JjieJhSR2G3mEJfWaZ_Iq4r2lp_92smyD59Nw-CmCfhA';
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
+const GEMINI_API_KEY = 'AQ.Ab8RN6KN34kK2nu31JCFlrNPHhI-kd4ATbPBHfVzizzgN3-eTg';
+
+const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
 
 async function callGemini(prompt) {
   try {
@@ -9,16 +10,13 @@ async function callGemini(prompt) {
       body: JSON.stringify({
         contents: [{
           parts: [{ text: prompt }]
-        }],
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 1500,
-        }
+        }]
       })
     });
 
     if (!response.ok) {
       const err = await response.json();
+      console.error('API Error:', err);
       throw new Error(err.error?.message || 'API request failed');
     }
 
