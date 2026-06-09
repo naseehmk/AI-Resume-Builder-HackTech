@@ -1,35 +1,40 @@
-const API_KEY = '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';
+const API_KEY = 'AQ.Ab8RN6LZc7WHX5cBoA2_Qqs9PVAzYtQfrLHxxzlJ-zxEHptEnw';
 
 async function callGemini(prompt) {
   try {
     const response = await fetch(
-      'https://openrouter.ai/api/v1/chat/completions',
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent',
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${API_KEY}`,
-          'HTTP-Referer': 'https://naseehmk.github.io',
-          'X-Title': 'ResumeAI'
+          'x-goog-api-key': API_KEY
         },
         body: JSON.stringify({
-          model: 'google/gemini-2.0-flash-exp:free',
-          messages: [{ role: 'user', content: prompt }]
+          contents: [
+            {
+              parts: [
+                {
+                  text: prompt
+                }
+              ]
+            }
+          ]
         })
       }
     );
 
+    const data = await response.json();
+
     if (!response.ok) {
-      const err = await response.json();
-      console.error('API Error:', err);
-      throw new Error(err.error?.message || 'API request failed');
+      console.error(data);
+      throw new Error(data.error?.message || 'API request failed');
     }
 
-    const data = await response.json();
-    return data.choices[0].message.content;
+    return data.candidates[0].content.parts[0].text;
 
   } catch (error) {
-    console.error('API Error:', error);
+    console.error('Gemini Error:', error);
     throw error;
   }
 }
