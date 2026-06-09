@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interview Prep | ResumeAI</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/interview.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">⚡ ResumeAI</a>
+    <div class="nav-links">
+      <a href="resume-builder.html">Build Resume</a>
+      <a href="interview-prep.html" class="active">Interview Prep</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="resume-builder.html" onclick="toggleMenu()">Build Resume</a>
+    <a href="interview-prep.html" onclick="toggleMenu()">Interview Prep</a>
+  </div>
+
+  <div class="page-header">
+    <p class="section-eyebrow">AI Interview Prep</p>
+    <h1>Prepare for your interview</h1>
+    <p class="page-sub">Enter your target role and let Gemini AI generate role-specific interview questions with model answers.</p>
+  </div>
+
+  <div class="interview-container">
+
+
+    <div class="input-panel">
+      <h2 class="panel-title">Your Interview Setup</h2>
+
+      <div class="form-section">
+        <div class="form-group">
+          <label for="intRole">Target Job Role</label>
+          <input type="text" id="intRole" placeholder="e.g. Frontend Developer, Data Analyst"/>
+        </div>
+        <div class="form-group">
+          <label for="intLevel">Experience Level</label>
+          <select id="intLevel">
+            <option value="">Select level</option>
+            <option value="fresher">Fresher / Intern</option>
+            <option value="junior">Junior (0–2 years)</option>
+            <option value="mid">Mid-level (2–5 years)</option>
+            <option value="senior">Senior (5+ years)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="intSkills">Your Skills (optional)</label>
+          <input type="text" id="intSkills" placeholder="e.g. HTML, CSS, JavaScript, Python"/>
+        </div>
+        <div class="form-group">
+          <label for="intType">Interview Type</label>
+          <select id="intType">
+            <option value="mixed">Mixed (Technical + HR)</option>
+            <option value="technical">Technical Only</option>
+            <option value="hr">HR / Behavioral Only</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="numQuestions">Number of Questions</label>
+          <select id="numQuestions">
+            <option value="5">5 Questions</option>
+            <option value="10" selected>10 Questions</option>
+            <option value="15">15 Questions</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-primary btn-full" onclick="generateQuestions()">
+        ✦ Generate Interview Questions
+      </button>
+
+      <div class="tips-box">
+        <h3>💡 Quick Tips</h3>
+        <ul>
+          <li>Research the company before your interview</li>
+          <li>Use the STAR method for behavioral questions</li>
+          <li>Prepare 2–3 questions to ask the interviewer</li>
+          <li>Practice answers out loud, not just in your head</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="questions-panel">
+      <h2 class="panel-title">Interview Questions</h2>
+
+      <div class="empty-state" id="intEmptyState">
+        <div class="empty-icon">🎯</div>
+        <p>Set up your interview details and click<br/><strong>"Generate Interview Questions"</strong></p>
+        <p class="empty-sub">Questions with model answers will appear here</p>
+      </div>
+
+      <div class="loading-state" id="intLoadingState" style="display:none;">
+        <div class="loader"></div>
+        <p>Gemini AI is preparing your questions...</p>
+      </div>
+
+      <div id="questionsOutput" style="display:none;">
+        <div class="questions-meta" id="questionsMeta"></div>
+        <div id="questionsList"></div>
+        <button class="btn-secondary btn-full" onclick="generateQuestions()" style="margin-top:1.5rem;">
+          🔄 Regenerate Questions
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p class="footer-credit">Built by <strong>Naseeh Manikkoth</strong> during the <strong>HACKTECH</strong> Junior Web Developer Internship Program</p>
+    <p class="footer-copy">© 2025 ResumeAI · Powered by Google Gemini</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/gemini.js"></script>
+  <script src="js/interview.js"></script>
+</body>
+</html>
