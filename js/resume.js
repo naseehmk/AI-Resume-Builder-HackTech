@@ -18,9 +18,6 @@ async function generateResume() {
   const cgpa          = document.getElementById('cgpa').value.trim();
   const class12       = document.getElementById('class12').value.trim();
   const class10       = document.getElementById('class10').value.trim();
-  const progLanguages = document.getElementById('progLanguages').value.trim();
-  const databases     = document.getElementById('databases').value.trim();
-  const tools         = document.getElementById('tools').value.trim();
   const skills        = document.getElementById('skills').value.trim();
   const workExp       = document.getElementById('workExp').value.trim();
   const strengths     = document.getElementById('strengths').value.trim();
@@ -56,10 +53,7 @@ Person details:
 - Name: ${fullName}
 - Target Job Role: ${jobRole}
 - Experience Level: ${experience || 'fresher'}
-- Programming Languages: ${progLanguages || 'Not specified'}
-- Databases: ${databases || 'Not specified'}
-- Tools: ${tools || 'Not specified'}
-- Other Skills: ${skills || 'Not specified'}
+- Skills: ${skills || 'Not specified'}
 - Education: ${degree || 'Not specified'} from ${college || 'Not specified'}, ${gradYear || ''}. CGPA: ${cgpa || 'Not specified'}
 - Projects: ${workExp || 'Not specified'}
 - Strengths: ${strengths || 'Not specified'}
@@ -87,7 +81,7 @@ Write the summary in third person. Make it professional, ATS-friendly, and tailo
     populateResume({
       fullName, email, phone, location, linkedin, github,
       jobRole, degree, college, collegeLocation, gradYear, cgpa,
-      class12, class10, progLanguages, databases, tools, skills,
+      class12, class10, skills,
       workExp, strengths, languages, achievements,
       summary: parsed.summary,
       suggestions: parsed.suggestions
@@ -167,12 +161,10 @@ function populateResume(data) {
   document.getElementById('previewSummary').textContent = data.summary;
 
   // Technical Knowledge
-  let techHTML = '';
-  if (data.progLanguages) techHTML += `<p><strong>Programming Languages:</strong> ${data.progLanguages}</p>`;
-  if (data.databases)     techHTML += `<p><strong>Databases:</strong> ${data.databases}</p>`;
-  if (data.tools)         techHTML += `<p><strong>Tools:</strong> ${data.tools}</p>`;
-  if (data.skills)        techHTML += `<p><strong>Skills:</strong> ${data.skills}</p>`;
-  document.getElementById('previewSkills').innerHTML = techHTML || '<p style="font-size:0.85rem;color:#999">No skills provided</p>';
+  const skillsArr = data.skills ? data.skills.split(',').map(s => s.trim()).filter(Boolean) : [];
+  document.getElementById('previewSkills').innerHTML = skillsArr
+    .map(s => `<span class="skill-tag">${s}</span>`)
+    .join('') || '<p style="font-size:0.85rem;color:#999">No skills provided</p>';
 
   // Projects
   if (data.workExp) {
