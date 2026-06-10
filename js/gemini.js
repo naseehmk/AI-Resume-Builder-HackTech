@@ -1,18 +1,18 @@
 async function callGemini(prompt) {
-  const API_KEY = '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';
+  const API_KEY = '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';
   
   try {
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + API_KEY,
-        'HTTP-Referer': 'https://naseehmk.github.io',
-        'X-Title': 'ResumeAI'
+        'Authorization': 'Bearer ' + API_KEY
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-3.1-8b-instruct:free',
-        messages: [{ role: 'user', content: prompt }]
+        model: 'llama-3.1-8b-instant',
+        messages: [{ role: 'user', content: prompt }],
+        max_tokens: 1500,
+        temperature: 0.7
       })
     });
 
