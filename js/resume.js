@@ -12,6 +12,9 @@ async function generateResume() {
   const college     = document.getElementById('college').value.trim();
   const gradYear    = document.getElementById('gradYear').value.trim();
   const cgpa        = document.getElementById('cgpa').value.trim();
+  const class12     = document.getElementById('class12').value.trim();
+  const class10     = document.getElementById('class10').value.trim();
+  const languages   = document.getElementById('languages').value.trim();
   const workExp     = document.getElementById('workExp').value.trim();
   const achievements = document.getElementById('achievements').value.trim();
 
@@ -46,7 +49,8 @@ Person details:
 - Target Job Role: ${jobRole}
 - Experience Level: ${experience || 'fresher'}
 - Skills: ${skills}
-- Education: ${degree || 'Not specified'} from ${college || 'Not specified'}, ${gradYear || ''}. CGPA: ${cgpa || 'Not specified'}
+- Education: ${degree || 'Not specified'} from ${college || 'Not specified'}, ${gradYear || ''}. CGPA: ${cgpa || 'Not specified'}. 12th: ${class12 || 'Not specified'}. 10th: ${class10 || 'Not specified'}
+- Languages Known: ${languages || 'Not specified'}
 - Work Experience / Projects: ${workExp || 'No experience listed'}
 - Achievements: ${achievements || 'None listed'}
 
@@ -76,7 +80,8 @@ For suggestions, give practical tips to improve this specific resume.
    
     populateResume({
       fullName, email, phone, location, linkedin,
-      jobRole, skills, degree, college, gradYear, cgpa,
+      jobRole, skills, degree, college, gradYear, cgpa,class12,
+      class10,languages,
       workExp, achievements,
       summary: parsed.summary,
       suggestions: parsed.suggestions
@@ -113,6 +118,11 @@ function populateResume(data) {
     .map(s => `<span class="skill-tag">${s}</span>`)
     .join('');
 
+  if (data.languages) {
+    const langArr = data.languages.split(',').map(l => l.trim()).filter(Boolean);
+    document.getElementById('previewSkills').innerHTML += '<br/><strong style="font-size:0.75rem;color:#7c3aed;display:block;margin-top:0.5rem;">LANGUAGES</strong>' + langArr.map(l => `<span class="skill-tag">${l}</span>`).join('');
+  }
+
   let eduHTML = '';
   if (data.degree || data.college) {
     eduHTML = `
@@ -120,6 +130,8 @@ function populateResume(data) {
         <h4>${data.degree || 'Degree'}</h4>
         <p>${data.college || ''}${data.gradYear ? ' · ' + data.gradYear : ''}${data.cgpa ? ' · ' + data.cgpa : ''}</p>
       </div>
+      ${data.class12 ? `<div class="edu-item"><h4>Class 12</h4><p>${data.class12}</p></div>` : ''}
+      ${data.class10 ? `<div class="edu-item"><h4>Class 10</h4><p>${data.class10}</p></div>` : ''}
     `;
   }
   document.getElementById('previewEducation').innerHTML = eduHTML || '<p style="font-size:0.85rem;color:#999">No education details provided</p>';
