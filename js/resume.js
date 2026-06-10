@@ -114,11 +114,6 @@ function populateResume(data) {
   const skillsArr = data.skills.split(',').map(s => s.trim()).filter(Boolean);
   let skillsHTML = skillsArr.map(s => `<span class="skill-tag">${s}</span>`).join('');
 
-  if (data.languages) {
-    const langArr = data.languages.split(',').map(l => l.trim()).filter(Boolean);
-    skillsHTML += '<div style="width:100%;margin-top:0.5rem;"><strong style="font-size:0.72rem;color:#7c3aed;text-transform:uppercase;letter-spacing:0.05em;">Languages</strong></div>';
-    skillsHTML += langArr.map(l => `<span class="skill-tag">${l}</span>`).join('');
-  }
   document.getElementById('previewSkills').innerHTML = skillsHTML;
 
   // Education
@@ -163,6 +158,19 @@ function populateResume(data) {
       .join('');
   } else {
     document.getElementById('achieveSection').style.display = 'none';
+  }
+  
+  // Languages
+  if (data.languages) {
+    const langSection = document.getElementById('langSection');
+    if (langSection) langSection.style.display = 'block';
+    const langArr = data.languages.split(',').map(l => l.trim()).filter(Boolean);
+    document.getElementById('previewLanguages').innerHTML = langArr
+      .map(l => `<span class="skill-tag">${l}</span>`)
+      .join('');
+  } else {
+    const langSection = document.getElementById('langSection');
+    if (langSection) langSection.style.display = 'none';
   }
 
   // AI Suggestions
