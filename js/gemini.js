@@ -11,7 +11,7 @@ async function callGemini(prompt) {
         'X-Title': 'ResumeAI'
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.0-flash-exp:free',
+        model: 'meta-llama/llama-3.1-8b-instruct:free',
         messages: [{ role: 'user', content: prompt }]
       })
     });
