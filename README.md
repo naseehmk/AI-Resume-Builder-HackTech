@@ -91,7 +91,7 @@ AI-Resume-Builder-HackTech/
 
 ### Prerequisites
 - A modern web browser (Chrome, Firefox, Edge)
-- A free Google Gemini API key → [Get it here](https://aistudio.google.com/app/apikey)
+- A free groq API key → [Get it here](https://console.groq.com/keys)
 
 ### Setup
 
