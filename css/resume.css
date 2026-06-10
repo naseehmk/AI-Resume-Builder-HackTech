@@ -1,7 +1,3 @@
-/* =============================================
-   RESUME BUILDER PAGE STYLES
-============================================= */
-
 .builder-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -192,4 +188,58 @@
     position: static;
     max-height: none;
   }
+}
+
+/* --- UPDATED RESUME OUTPUT STYLES --- */
+.resume-head {
+  text-align: center;
+  border-bottom: 2px solid #7c3aed;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+.resume-head h1 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.preview-contacts {
+  font-size: 0.78rem;
+  color: #555;
+  margin-top: 0.3rem;
+}
+.edu-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #333;
+}
+.edu-row strong { color: #1a1a2e; }
+.edu-item { margin-bottom: 0.6rem; }
+#previewSkills p {
+  font-size: 0.85rem;
+  color: #333;
+  margin-bottom: 0.25rem;
+  line-height: 1.5;
+}
+.proj-item {
+  font-size: 0.85rem;
+  color: #333;
+  margin-bottom: 0.4rem;
+  line-height: 1.6;
+}
+.bullet-item {
+  font-size: 0.85rem;
+  color: #333;
+  padding-left: 1rem;
+  position: relative;
+  margin-bottom: 0.25rem;
+}
+.bullet-item::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #7c3aed;
 }
