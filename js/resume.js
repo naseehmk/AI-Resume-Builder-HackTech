@@ -160,16 +160,17 @@ function populateResume(data) {
     document.getElementById('achieveSection').style.display = 'none';
   }
   
-  // Languages
-  if (data.languages) {
-    const langSection = document.getElementById('langSection');
+ 
+ // Languages
+  const langSection = document.getElementById('langSection');
+  const previewLanguages = document.getElementById('previewLanguages');
+  if (data.languages && previewLanguages) {
     if (langSection) langSection.style.display = 'block';
     const langArr = data.languages.split(',').map(l => l.trim()).filter(Boolean);
-    document.getElementById('previewLanguages').innerHTML = langArr
+    previewLanguages.innerHTML = langArr
       .map(l => `<span class="skill-tag">${l}</span>`)
       .join('');
   } else {
-    const langSection = document.getElementById('langSection');
     if (langSection) langSection.style.display = 'none';
   }
 
