@@ -10,6 +10,7 @@
 </head>
 <body>
 
+  <!-- NAVBAR -->
   <nav class="navbar">
     <a href="index.html" class="nav-logo">⚡ ResumeAI</a>
     <div class="nav-links">
@@ -19,24 +20,27 @@
     <div class="hamburger" onclick="toggleMenu()">☰</div>
   </nav>
 
+  <!-- MOBILE MENU -->
   <div class="mobile-menu" id="mobileMenu">
     <a href="resume-builder.html" onclick="toggleMenu()">Build Resume</a>
     <a href="interview-prep.html" onclick="toggleMenu()">Interview Prep</a>
   </div>
 
-
+  <!-- PAGE HEADER -->
   <div class="page-header">
     <p class="section-eyebrow">AI Resume Builder</p>
     <h1>Build your resume in seconds</h1>
-    <p class="page-sub">Fill in the form below and Gemini AI will generate a professional resume summary tailored to your profile.</p>
+    <p class="page-sub">Fill in the form and AI will generate a professional resume tailored to your profile.</p>
   </div>
 
- 
+  <!-- MAIN CONTENT -->
   <div class="builder-container">
 
+    <!-- FORM PANEL -->
     <div class="form-panel">
       <h2 class="panel-title">Your Details</h2>
 
+      <!-- Personal Info -->
       <div class="form-section">
         <h3 class="form-section-title">Personal Info</h3>
         <div class="form-group">
@@ -56,16 +60,20 @@
         <div class="form-row">
           <div class="form-group">
             <label for="location">Location</label>
-            <input type="text" id="location" placeholder="e.g. Gurugram, India"/>
+            <input type="text" id="location" placeholder="e.g. Calicut, Kerala"/>
           </div>
           <div class="form-group">
             <label for="linkedin">LinkedIn URL</label>
             <input type="text" id="linkedin" placeholder="linkedin.com/in/yourname"/>
           </div>
         </div>
+        <div class="form-group">
+          <label for="github">GitHub URL (optional)</label>
+          <input type="text" id="github" placeholder="github.com/yourusername"/>
+        </div>
       </div>
 
-
+      <!-- Target Role -->
       <div class="form-section">
         <h3 class="form-section-title">Target Role</h3>
         <div class="form-row">
@@ -86,63 +94,99 @@
         </div>
       </div>
 
+      <!-- Education -->
       <div class="form-section">
-  <h3 class="form-section-title">Skills</h3>
-  <div class="form-group">
-    <label for="skills">Technical Skills</label>
-    <input type="text" id="skills" placeholder="e.g. HTML, CSS, JavaScript, React, Python"/>
-  </div>
-  <div class="form-group">
-    <label for="languages">Languages Known</label>
-    <input type="text" id="languages" placeholder="e.g. English, Hindi, Malayalam"/>
-  </div>
-</div>
-
-    <div class="form-section">
-  <h3 class="form-section-title">Education</h3>
-  <div class="form-group">
-    <label for="degree">Degree & Major</label>
-    <input type="text" id="degree" placeholder="e.g. BTech in Computer Science"/>
-  </div>
-  <div class="form-row">
-    <div class="form-group">
-      <label for="college">College / University</label>
-      <input type="text" id="college" placeholder="e.g. Amity University Haryana"/>
-    </div>
-    <div class="form-group">
-      <label for="gradYear">Graduation Year</label>
-      <input type="text" id="gradYear" placeholder="e.g. 2026"/>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="cgpa">CGPA / Percentage</label>
-    <input type="text" id="cgpa" placeholder="e.g. 7.9 CGPA"/>
-  </div>
-  <div class="form-row">
-    <div class="form-group">
-      <label for="class12">12th Grade / HSC</label>
-      <input type="text" id="class12" placeholder="e.g. 97% - CBSE 2022"/>
-    </div>
-    <div class="form-group">
-      <label for="class10">10th Grade / SSC</label>
-      <input type="text" id="class10" placeholder="e.g. 95% - CBSE 2020"/>
-    </div>
-  </div>
-</div>
-
-      <div class="form-section">
-        <h3 class="form-section-title">Experience / Projects</h3>
+        <h3 class="form-section-title">Education</h3>
         <div class="form-group">
-          <label for="workExp">Work Experience or Projects</label>
-          <textarea id="workExp" rows="4" placeholder="Describe your work experience or key projects. e.g. Built a student management system using C++. Interned at HACKTECH as a Junior Web Developer..."></textarea>
+          <label for="degree">Degree & Major</label>
+          <input type="text" id="degree" placeholder="e.g. BTech in Computer Science and Engineering"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="college">College / University</label>
+            <input type="text" id="college" placeholder="e.g. Amity University Haryana"/>
+          </div>
+          <div class="form-group">
+            <label for="collegeLocation">College Location</label>
+            <input type="text" id="collegeLocation" placeholder="e.g. Gurugram, Haryana"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="gradYear">Graduation Year</label>
+            <input type="text" id="gradYear" placeholder="e.g. 2026"/>
+          </div>
+          <div class="form-group">
+            <label for="cgpa">CGPA / Percentage</label>
+            <input type="text" id="cgpa" placeholder="e.g. 7.9"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="class12">12th Grade & School</label>
+            <input type="text" id="class12" placeholder="e.g. 97% - CBSE, School Name, 2022"/>
+          </div>
+          <div class="form-group">
+            <label for="class10">10th Grade & School</label>
+            <input type="text" id="class10" placeholder="e.g. 95% - CBSE, School Name, 2020"/>
+          </div>
         </div>
       </div>
 
+      <!-- Technical Skills -->
       <div class="form-section">
-        <h3 class="form-section-title">Achievements (Optional)</h3>
+        <h3 class="form-section-title">Technical Knowledge</h3>
+        <div class="form-group">
+          <label for="progLanguages">Programming Languages</label>
+          <input type="text" id="progLanguages" placeholder="e.g. C, C++, Python, JavaScript"/>
+        </div>
+        <div class="form-group">
+          <label for="databases">Databases</label>
+          <input type="text" id="databases" placeholder="e.g. MySQL, MongoDB"/>
+        </div>
+        <div class="form-group">
+          <label for="tools">Tools & Technologies</label>
+          <input type="text" id="tools" placeholder="e.g. VS Code, Git, GitHub"/>
+        </div>
+        <div class="form-group">
+          <label for="skills">Other Skills</label>
+          <input type="text" id="skills" placeholder="e.g. MS Word, PowerPoint, Problem Solving"/>
+        </div>
+      </div>
+
+      <!-- Projects -->
+      <div class="form-section">
+        <h3 class="form-section-title">Projects</h3>
+        <div class="form-group">
+          <label for="workExp">Projects & Experience</label>
+          <textarea id="workExp" rows="4" placeholder="e.g. Student Management System (C++) - Built a console-based system to manage student records, implemented CRUD operations..."></textarea>
+        </div>
+      </div>
+
+      <!-- Strengths -->
+      <div class="form-section">
+        <h3 class="form-section-title">Strengths</h3>
+        <div class="form-group">
+          <label for="strengths">Your Strengths</label>
+          <input type="text" id="strengths" placeholder="e.g. Quick learner, Analytic thinking, Teamwork"/>
+        </div>
+      </div>
+
+      <!-- Languages -->
+      <div class="form-section">
+        <h3 class="form-section-title">Languages Known</h3>
+        <div class="form-group">
+          <label for="languages">Languages</label>
+          <input type="text" id="languages" placeholder="e.g. English, Hindi, Malayalam"/>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="form-section">
+        <h3 class="form-section-title">Certifications (Optional)</h3>
         <div class="form-group">
           <label for="achievements">Certifications & Achievements</label>
-          <textarea id="achievements" rows="3" placeholder="e.g. Responsive Web Design Certificate - freeCodeCamp, 97% in Class 12..."></textarea>
+          <textarea id="achievements" rows="3" placeholder="e.g. Information and Communication Technology (ICT) - SWAYAM CERTIFICATE&#10;Responsive Web Design - freeCodeCamp"></textarea>
         </div>
       </div>
 
@@ -151,63 +195,78 @@
       </button>
     </div>
 
-
+    <!-- PREVIEW PANEL -->
     <div class="preview-panel">
       <div class="preview-header">
         <h2 class="panel-title">Resume Preview</h2>
         <button class="btn-download" onclick="downloadPDF()" id="downloadBtn" style="display:none;">📥 Download PDF</button>
       </div>
 
+      <!-- Empty State -->
       <div class="empty-state" id="emptyState">
         <div class="empty-icon">📄</div>
         <p>Fill in your details and click<br/><strong>"Generate Resume with AI"</strong></p>
         <p class="empty-sub">Your resume will appear here</p>
       </div>
 
+      <!-- Loading State -->
       <div class="loading-state" id="loadingState" style="display:none;">
         <div class="loader"></div>
-        <p>Gemini AI is crafting your resume...</p>
+        <p>AI is crafting your resume...</p>
       </div>
 
+      <!-- Resume Output -->
       <div class="resume-output" id="resumeOutput" style="display:none;">
 
+        <!-- Resume Header -->
         <div class="resume-head">
           <h1 id="previewName">Your Name</h1>
-          <p id="previewRole" class="preview-role">Target Role</p>
           <div class="preview-contacts" id="previewContacts"></div>
         </div>
 
-        <div class="resume-section">
-          <h2 class="resume-sec-title">Professional Summary</h2>
-          <p id="previewSummary"></p>
-        </div>
-
-        <div class="resume-section">
-          <h2 class="resume-sec-title">Skills</h2>
-          <div id="previewSkills" class="skills-tags"></div>
-        </div>
-
+        <!-- Education -->
         <div class="resume-section">
           <h2 class="resume-sec-title">Education</h2>
           <div id="previewEducation"></div>
         </div>
 
+        <!-- Profile/Summary -->
+        <div class="resume-section">
+          <h2 class="resume-sec-title">Profile</h2>
+          <p id="previewSummary"></p>
+        </div>
+
+        <!-- Technical Knowledge -->
+        <div class="resume-section">
+          <h2 class="resume-sec-title">Technical Knowledge</h2>
+          <div id="previewSkills"></div>
+        </div>
+
+        <!-- Projects -->
         <div class="resume-section" id="expSection">
-          <h2 class="resume-sec-title">Experience & Projects</h2>
+          <h2 class="resume-sec-title">Projects</h2>
           <div id="previewExperience"></div>
         </div>
 
-        <!-- Languages -->
-        <div class="resume-section" id="langSection">
-          <h2 class="resume-sec-title">Languages</h2>
-          <div id="previewLanguages" class="skills-tags"></div>
+        <!-- Strengths -->
+        <div class="resume-section" id="strengthSection" style="display:none;">
+          <h2 class="resume-sec-title">Strength</h2>
+          <div id="previewStrengths"></div>
         </div>
 
-        <div class="resume-section" id="achieveSection">
-          <h2 class="resume-sec-title">Achievements & Certifications</h2>
+        <!-- Languages -->
+        <div class="resume-section" id="langSection" style="display:none;">
+          <h2 class="resume-sec-title">Language Known</h2>
+          <div id="previewLanguages"></div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="resume-section" id="achieveSection" style="display:none;">
+          <h2 class="resume-sec-title">Certifications</h2>
           <div id="previewAchievements"></div>
         </div>
 
+        <!-- AI Suggestions -->
         <div class="ai-suggestions" id="aiSuggestions">
           <h3>✦ AI Suggestions</h3>
           <div id="suggestionsContent"></div>
@@ -218,9 +277,10 @@
 
   </div>
 
+  <!-- FOOTER -->
   <footer class="footer">
     <p class="footer-credit">Built by <strong>Naseeh Manikkoth</strong> during the <strong>HACKTECH</strong> Junior Web Developer Internship Program</p>
-    <p class="footer-copy">© 2025 ResumeAI · Powered by Google Gemini</p>
+    <p class="footer-copy">© 2025 ResumeAI · Powered by AI</p>
   </footer>
 
   <script src="js/main.js"></script>
