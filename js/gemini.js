@@ -1,5 +1,5 @@
 async function callGemini(prompt) {
-  const API_KEY = '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';
+  const API_KEY = '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';
   
   try {
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
