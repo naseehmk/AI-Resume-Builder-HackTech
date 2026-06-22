@@ -1,13 +1,9 @@
 async function callGemini(prompt) {
-  const parts = ['gsk_cU9pMzMVxS2Bm', 'MHZQKWJWGdyb3FY9', 'TRP4sqDn4sFobeGfDAZBI3h'];
-  const API_KEY = parts.join('');
-
   try {
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const response = await fetch('https://lively-lab-cff6.naseehm134.workers.dev', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + API_KEY
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         model: 'llama-3.1-8b-instant',
