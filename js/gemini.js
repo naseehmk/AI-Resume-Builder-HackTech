@@ -1,6 +1,6 @@
 async function callGemini(prompt) {
   const API_KEY = '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';
-  
+
   try {
     const response = await fetch(
       'https://api-inference.huggingface.co/v1/chat/completions',
