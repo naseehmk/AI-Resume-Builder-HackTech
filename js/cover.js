@@ -100,7 +100,6 @@ function displayCoverLetter(data) {
     <div class="cover-subject">Subject: ${data.parsed.subject}</div>
 
     <div class="cover-body">
-      <p>Dear Hiring Manager,</p>
       ${data.parsed.opening ? `<p>${data.parsed.opening}</p>` : ''}
       ${data.parsed.body ? `<p>${data.parsed.body}</p>` : ''}
       ${data.parsed.closing_para ? `<p>${data.parsed.closing_para}</p>` : ''}
