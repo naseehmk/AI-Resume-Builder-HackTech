@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cover Letter Generator | ResumeAI</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/cover.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">⚡ ResumeAI</a>
+    <div class="nav-links">
+      <a href="resume-builder.html">Build Resume</a>
+      <a href="interview-prep.html">Interview Prep</a>
+      <a href="cover-letter.html" class="active">Cover Letter</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="resume-builder.html" onclick="toggleMenu()">Build Resume</a>
+    <a href="interview-prep.html" onclick="toggleMenu()">Interview Prep</a>
+    <a href="cover-letter.html" onclick="toggleMenu()">Cover Letter</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <p class="section-eyebrow">AI Cover Letter Generator</p>
+    <h1>Generate a cover letter in seconds</h1>
+    <p class="page-sub">Fill in your details and AI will write a professional cover letter tailored to the job you're applying for.</p>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="cover-container">
+
+    <!-- FORM PANEL -->
+    <div class="form-panel">
+      <h2 class="panel-title">Your Details</h2>
+
+      <!-- Personal Info -->
+      <div class="form-section">
+        <h3 class="form-section-title">Personal Info</h3>
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" placeholder="e.g. Peter Parker"/>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="your@email.com"/>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" id="phone" placeholder="+91 XXXXX XXXXX"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Job Details -->
+      <div class="form-section">
+        <h3 class="form-section-title">Job Details</h3>
+        <div class="form-group">
+          <label for="jobRole">Job Role / Position</label>
+          <input type="text" id="jobRole" placeholder="e.g. Frontend Developer"/>
+        </div>
+        <div class="form-group">
+          <label for="companyName">Company Name</label>
+          <input type="text" id="companyName" placeholder="e.g. Google, TCS, Infosys"/>
+        </div>
+        <div class="form-group">
+          <label for="jobDesc">Job Description (optional)</label>
+          <textarea id="jobDesc" rows="3" placeholder="Paste key points from the job description to make your cover letter more tailored..."></textarea>
+        </div>
+      </div>
+
+      <!-- Your Background -->
+      <div class="form-section">
+        <h3 class="form-section-title">Your Background</h3>
+        <div class="form-group">
+          <label for="degree">Degree & University</label>
+          <input type="text" id="degree" placeholder="e.g. BTech CSE, Amity University Haryana"/>
+        </div>
+        <div class="form-group">
+          <label for="skills">Key Skills</label>
+          <input type="text" id="skills" placeholder="e.g. HTML, CSS, JavaScript, Python, C++"/>
+        </div>
+        <div class="form-group">
+          <label for="experience">Relevant Experience / Projects</label>
+          <textarea id="experience" rows="3" placeholder="e.g. Built an AI Resume Builder during HACKTECH internship. Student Management System in C++..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="tone">Tone</label>
+          <select id="tone">
+            <option value="professional">Professional & Formal</option>
+            <option value="enthusiastic">Enthusiastic & Energetic</option>
+            <option value="confident">Confident & Bold</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-primary btn-full" onclick="generateCoverLetter()">
+        ✦ Generate Cover Letter with AI
+      </button>
+    </div>
+
+    <!-- PREVIEW PANEL -->
+    <div class="preview-panel">
+      <div class="preview-header">
+        <h2 class="panel-title">Cover Letter Preview</h2>
+        <button class="btn-download" onclick="downloadCoverLetter()" id="downloadBtn" style="display:none;">📥 Download PDF</button>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">✉️</div>
+        <p>Fill in your details and click<br/><strong>"Generate Cover Letter with AI"</strong></p>
+        <p class="empty-sub">Your cover letter will appear here</p>
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-state" id="loadingState" style="display:none;">
+        <div class="loader"></div>
+        <p>AI is writing your cover letter...</p>
+      </div>
+
+      <!-- Cover Letter Output -->
+      <div class="cover-output" id="coverOutput" style="display:none;">
+        <div id="coverContent"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p class="footer-credit">Built by <strong>Naseeh Manikkoth</strong> during the <strong>HACKTECH</strong> Junior Web Developer Internship Program</p>
+    <p class="footer-copy">© 2025 ResumeAI</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/gemini.js"></script>
+  <script src="js/cover.js"></script>
+</body>
+</html>
