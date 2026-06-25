@@ -1,0 +1,80 @@
+.cover-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+}
+
+.form-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  height: fit-content;
+}
+
+.preview-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+}
+
+.preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.preview-header .panel-title { margin-bottom: 0; }
+
+.btn-download {
+  background: var(--bg-card);
+  border: 1px solid var(--purple-border);
+  color: var(--purple-bright);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.btn-download:hover { background: var(--purple-glow); }
+
+.cover-output {
+  background: #fff;
+  color: #1a1a2e;
+  border-radius: var(--radius);
+  padding: 2rem;
+  font-family: var(--font-body);
+}
+
+.cover-date { font-size: 0.88rem; color: #555; margin-bottom: 1.5rem; }
+
+.cover-sender { margin-bottom: 1.5rem; }
+.cover-sender h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; font-weight: 700; color: #1a1a2e; }
+.cover-sender p { font-size: 0.82rem; color: #555; margin-top: 0.2rem; }
+
+.cover-recipient { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #e5e7eb; }
+.cover-recipient p { font-size: 0.88rem; color: #333; line-height: 1.5; }
+
+.cover-subject { font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem; font-weight: 700; color: #7c3aed; margin-bottom: 1.25rem; }
+
+.cover-body p { font-size: 0.9rem; color: #333; line-height: 1.8; margin-bottom: 1rem; }
+
+.cover-closing { margin-top: 1.5rem; }
+.cover-closing p { font-size: 0.88rem; color: #333; }
+.cover-closing .cover-name { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; color: #1a1a2e; margin-top: 0.5rem; }
+
+@media (max-width: 900px) {
+  .cover-container { grid-template-columns: 1fr; }
+  .preview-panel { position: static; max-height: none; }
+}
