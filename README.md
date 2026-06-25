@@ -116,7 +116,7 @@ AI-Resume-Builder-HackTech/
 
 ## 📸 Screenshots
 
-<img width="444" height="469" alt="Screenshot 2026-06-15 152737" src="https://github.com/user-attachments/assets/912ce5bd-809c-4e08-8063-c2a3f81ebaf7" />
+<img width="925" height="468" alt="Screenshot 2026-06-22 131351" src="https://github.com/user-attachments/assets/652c805d-f001-4f8c-9f5c-c9b524ca9cc0" />
 <img width="867" height="484" alt="Screenshot 2026-06-15 211526" src="https://github.com/user-attachments/assets/bfaeb558-c547-4a3a-bfe5-d694d529aaa6" />
 <img width="883" height="492" alt="Screenshot 2026-06-15 211902" src="https://github.com/user-attachments/assets/abfeff75-2e17-40ec-9d27-ced4c4a14909" />
 
