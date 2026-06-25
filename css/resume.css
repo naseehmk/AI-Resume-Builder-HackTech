@@ -61,7 +61,7 @@
 }
 
 .resume-head {
-  border-bottom: 2px solid #7c3aed;
+  border-bottom: 2px solid #1a1a2e;
   padding-bottom: 1rem;
   margin-bottom: 1.25rem;
 }
@@ -94,7 +94,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #7c3aed;
+  color: #1a1a2e;
   border-bottom: 1px solid #e5e7eb;
   padding-bottom: 0.3rem;
   margin-bottom: 0.6rem;
