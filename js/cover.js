@@ -44,7 +44,7 @@ Details:
 - Job Description: ${jobDesc || 'Not specified'}
 - Tone: ${tone}
 
-Write a compelling, ${tone} cover letter. Keep each paragraph 3-4 sentences. Do not include date, address or signature in the JSON - just the letter content paragraphs.
+ Write a compelling, ${tone} cover letter. Keep each paragraph 3-4 sentences. Do not include date, address or signature in the JSON - just the letter content paragraphs. Do NOT start any paragraph with "Dear Hiring Manager" - that greeting is already added separately. Start the opening paragraph directly with "I am writing..." or similar.
     `;
 
     const response = await callGemini(prompt);
