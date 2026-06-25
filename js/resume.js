@@ -1,7 +1,3 @@
-// =============================================
-// RESUME.JS — Resume Builder Logic
-// =============================================
-
 async function generateResume() {
   const fullName      = document.getElementById('fullName').value.trim();
   const email         = document.getElementById('email').value.trim();
