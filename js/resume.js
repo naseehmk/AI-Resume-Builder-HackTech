@@ -104,8 +104,8 @@ function populateResume(data) {
   if (data.phone)    contacts.push(data.phone);
   if (data.email)    contacts.push(data.email);
   if (data.location) contacts.push(data.location);
-  if (data.linkedin) contacts.push(`<a href="${data.linkedin}" style="color:#7c3aed">LinkedIn</a>`);
-  if (data.github)   contacts.push(`<a href="${data.github}" style="color:#7c3aed">Github</a>`);
+  if (data.linkedin) contacts.push(`<a href="${data.linkedin}" style="color:#1a1a2e">LinkedIn</a>`);
+  if (data.github)   contacts.push(`<a href="${data.github}" style="color:#1a1a2e">Github</a>`);
   document.getElementById('previewContacts').innerHTML = contacts.join(' &nbsp;|&nbsp; ');
 
   // Education
@@ -234,11 +234,11 @@ function downloadPDF() {
       <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Inter', sans-serif; color: #1a1a2e; background: #fff; padding: 2rem; font-size: 13px; }
-        .resume-head { text-align: center; border-bottom: 2px solid #7c3aed; padding-bottom: 0.75rem; margin-bottom: 1rem; }
+        .resume-head { text-align: center; border-bottom: 2px solid #1a1a2e; padding-bottom: 0.75rem; margin-bottom: 1rem; }
         .resume-head h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
         .preview-contacts { font-size: 0.78rem; color: #555; margin-top: 0.3rem; }
         .resume-section { margin-bottom: 1rem; }
-        .resume-sec-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a1a2e; border-bottom: 1.5px solid #7c3aed; padding-bottom: 0.2rem; margin-bottom: 0.5rem; }
+        .resume-sec-title { font-family: 'Space Grotesk', sans-serif; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1a1a2e; border-bottom: 1.5px solid #1a1a2e; padding-bottom: 0.2rem; margin-bottom: 0.5rem; }
         .edu-item { margin-bottom: 0.5rem; }
         .edu-row { display: flex; justify-content: space-between; font-size: 0.85rem; }
         .edu-row strong { color: #1a1a2e; }
@@ -246,9 +246,9 @@ function downloadPDF() {
         #previewSkills p { font-size: 0.85rem; color: #333; margin-bottom: 0.2rem; }
         .proj-item { font-size: 0.85rem; color: #333; margin-bottom: 0.3rem; }
         .bullet-item { font-size: 0.85rem; color: #333; padding-left: 1rem; position: relative; margin-bottom: 0.2rem; }
-        .bullet-item::before { content: '•'; position: absolute; left: 0; color: #7c3aed; }
+        .bullet-item::before { content: '•'; position: absolute; left: 0; color: #1a1a2e; }
         .ai-suggestions { display: none; }
-        a { color: #7c3aed; }
+        a { color: #1a1a2e; }
         @media print { body { padding: 0.5rem; } }
       </style>
     </head>
