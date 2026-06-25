@@ -104,8 +104,8 @@ function populateResume(data) {
   if (data.phone)    contacts.push(data.phone);
   if (data.email)    contacts.push(data.email);
   if (data.location) contacts.push(data.location);
-  if (data.linkedin) contacts.push(`<a href="${data.linkedin}" style="color:#1a1a2e">LinkedIn</a>`);
-  if (data.github)   contacts.push(`<a href="${data.github}" style="color:#1a1a2e">Github</a>`);
+  if (data.linkedin) contacts.push(`<a href="${data.linkedin}" style="color:#7c3aed">LinkedIn</a>`);
+  if (data.github)   contacts.push(`<a href="${data.github}" style="color:#7c3aed">Github</a>`);
   document.getElementById('previewContacts').innerHTML = contacts.join(' &nbsp;|&nbsp; ');
 
   // Education
