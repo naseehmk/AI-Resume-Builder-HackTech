@@ -132,12 +132,12 @@ textarea { resize: vertical; }
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 .nav-links a {
   color: var(--text-secondary);
   font-family: var(--font-display);
-  font-size: 0.95rem;
+  font-size: 0.82rem;
   font-weight: 500;
 }
 .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
