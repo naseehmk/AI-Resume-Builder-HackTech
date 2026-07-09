@@ -262,13 +262,21 @@ function stopRecording() {
 
   clearInterval(interviewState.timer);
 
+  // Wait longer to ensure final speech results are captured
   setTimeout(() => {
     document.getElementById('statusProcessing').style.display = 'none';
     document.getElementById('nextBtn').style.display = 'block';
-    scoreAnswer();
-  }, 1000);
-}
 
+    // Make sure answer text is captured
+    const answerEl = document.getElementById('userAnswerText');
+    if (!answerEl.textContent.trim()) {
+      answerEl.textContent = 'No answer detected';
+      document.getElementById('answerTextBox').style.display = 'block';
+    }
+
+    scoreAnswer();
+  }, 2000);
+}
 // ===== SCORING =====
 function scoreAnswer() {
   const answerText = document.getElementById('userAnswerText').textContent.toLowerCase();
