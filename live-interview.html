@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Interview | ResumeAI</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/live-interview.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">⚡ ResumeAI</a>
+    <div class="nav-links">
+      <a href="resume-builder.html">Build Resume</a>
+      <a href="interview-prep.html">Interview Prep</a>
+      <a href="cover-letter.html">Cover Letter</a>
+      <a href="live-interview.html" class="active">Live Interview</a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="resume-builder.html" onclick="toggleMenu()">Build Resume</a>
+    <a href="interview-prep.html" onclick="toggleMenu()">Interview Prep</a>
+    <a href="cover-letter.html" onclick="toggleMenu()">Cover Letter</a>
+    <a href="live-interview.html" onclick="toggleMenu()">Live Interview</a>
+  </div>
+
+  <!-- SETUP SCREEN -->
+  <div id="setupScreen">
+    <div class="page-header">
+      <p class="section-eyebrow">Live Interview Simulator</p>
+      <h1>Practice a real interview</h1>
+      <p class="page-sub">An AI interviewer will ask you questions. Answer by speaking. Your responses will be analyzed and scored.</p>
+    </div>
+
+    <div class="setup-container">
+      <div class="setup-card">
+        <h2 class="panel-title">Interview Setup</h2>
+
+        <div class="form-section">
+          <div class="form-group">
+            <label for="setupName">Your Name</label>
+            <input type="text" id="setupName" placeholder="e.g. Naseeh Manikkoth"/>
+          </div>
+          <div class="form-group">
+            <label for="setupRole">Target Job Role</label>
+            <input type="text" id="setupRole" placeholder="e.g. Frontend Developer"/>
+          </div>
+          <div class="form-group">
+            <label for="setupType">Interview Type</label>
+            <select id="setupType">
+              <option value="mixed">Mixed (Technical + HR + Behavioral)</option>
+              <option value="technical">Technical Only</option>
+              <option value="hr">HR Only</option>
+              <option value="behavioral">Behavioral Only</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="setupCount">Number of Questions</label>
+            <select id="setupCount">
+              <option value="5">5 Questions</option>
+              <option value="8" selected>8 Questions</option>
+              <option value="10">10 Questions</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="setup-rules">
+          <h3>📋 Interview Rules</h3>
+          <ul>
+            <li>Keep your eyes on the screen at all times</li>
+            <li>Do not look away from the camera</li>
+            <li>You will get <strong>2 warnings</strong> for suspicious behavior</li>
+            <li>After 3 violations, the interview will be terminated</li>
+            <li>Speak clearly when answering questions</li>
+          </ul>
+        </div>
+
+        <div class="setup-permissions">
+          <h3>🎥 Required Permissions</h3>
+          <div class="permission-item" id="camPermission">
+            <span class="perm-icon">📷</span>
+            <span>Camera Access</span>
+            <span class="perm-status" id="camStatus">Not granted</span>
+          </div>
+          <div class="permission-item" id="micPermission">
+            <span class="perm-icon">🎤</span>
+            <span>Microphone Access</span>
+            <span class="perm-status" id="micStatus">Not granted</span>
+          </div>
+          <button class="btn-secondary btn-full" onclick="requestPermissions()" id="permBtn">
+            Grant Permissions
+          </button>
+        </div>
+
+        <button class="btn-primary btn-full" onclick="startInterview()" id="startBtn" disabled>
+          🎯 Start Interview
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERVIEW SCREEN -->
+  <div id="interviewScreen" style="display:none;">
+
+    <!-- Warning Banner -->
+    <div class="warning-banner" id="warningBanner" style="display:none;">
+      <span id="warningText">⚠️ Warning 1/2: Please keep your eyes on the screen!</span>
+    </div>
+
+    <!-- Terminated Banner -->
+    <div class="terminated-banner" id="terminatedBanner" style="display:none;">
+      🚫 Interview Terminated — Too many violations detected!
+    </div>
+
+    <div class="interview-layout">
+
+      <!-- LEFT: Avatar + Webcam -->
+      <div class="interview-left">
+
+        <!-- Avatar -->
+        <div class="avatar-container">
+          <div class="avatar-wrapper" id="avatarWrapper">
+            <div class="avatar-body">
+              <div class="avatar-head">
+                <div class="avatar-face">
+                  <div class="avatar-eyes">
+                    <div class="avatar-eye left-eye"><div class="pupil"></div></div>
+                    <div class="avatar-eye right-eye"><div class="pupil"></div></div>
+                  </div>
+                  <div class="avatar-mouth" id="avatarMouth"></div>
+                </div>
+              </div>
+              <div class="avatar-neck"></div>
+              <div class="avatar-shoulders">
+                <div class="avatar-suit"></div>
+                <div class="avatar-tie"></div>
+              </div>
+            </div>
+          </div>
+          <div class="avatar-name">AI Interviewer</div>
+          <div class="avatar-speaking" id="avatarSpeaking" style="display:none;">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <!-- Webcam -->
+        <div class="webcam-container">
+          <video id="webcam" autoplay muted playsinline></video>
+          <div class="webcam-label">You</div>
+          <div class="eye-status" id="eyeStatus">👁️ Monitoring...</div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: Interview Content -->
+      <div class="interview-right">
+
+        <!-- Progress -->
+        <div class="interview-progress">
+          <div class="progress-info">
+            <span id="questionCounter">Question 1 of 8</span>
+            <span id="interviewType">Mixed Interview</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <!-- Warnings -->
+        <div class="warnings-display">
+          <div class="warning-dot" id="warn1">⚠️ Warning 1</div>
+          <div class="warning-dot" id="warn2">⚠️ Warning 2</div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="question-card-live">
+          <div class="question-type-badge-live" id="liveQuestionType">TECHNICAL</div>
+          <p class="live-question-text" id="liveQuestionText">Preparing your interview...</p>
+        </div>
+
+        <!-- Answer Section -->
+        <div class="answer-section">
+          <div class="answer-status" id="answerStatus">
+            <div class="status-waiting" id="statusWaiting">
+              ⏳ Waiting for question...
+            </div>
+            <div class="status-recording" id="statusRecording" style="display:none;">
+              <div class="recording-dot"></div>
+              🎤 Recording your answer...
+            </div>
+            <div class="status-processing" id="statusProcessing" style="display:none;">
+              🔄 Processing...
+            </div>
+          </div>
+
+          <div class="answer-text-box" id="answerTextBox" style="display:none;">
+            <h4>Your Answer:</h4>
+            <p id="userAnswerText"></p>
+          </div>
+
+          <div class="answer-controls">
+            <button class="btn-record" id="recordBtn" onclick="toggleRecording()" disabled>
+              🎤 Start Speaking
+            </button>
+            <button class="btn-next" id="nextBtn" onclick="nextQuestion()" style="display:none;">
+              Next Question →
+            </button>
+          </div>
+        </div>
+
+        <!-- Timer -->
+        <div class="answer-timer">
+          <span>Time to answer:</span>
+          <span class="timer-display" id="timerDisplay">02:00</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="resultsScreen" style="display:none;">
+    <div class="results-container">
+      <div class="results-header">
+        <h1>Interview Complete! 🎉</h1>
+        <p id="resultsName"></p>
+      </div>
+
+      <!-- Score Circle -->
+      <div class="score-section">
+        <div class="score-circle">
+          <svg viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#1a1a2e" stroke-width="12"/>
+            <circle cx="100" cy="100" r="80" fill="none" stroke="#a855f7" stroke-width="12"
+              stroke-dasharray="502" stroke-dashoffset="502" id="scoreCircle"
+              stroke-linecap="round" transform="rotate(-90 100 100)"/>
+          </svg>
+          <div class="score-text">
+            <span class="score-number" id="scoreNumber">0%</span>
+            <span class="score-label">Overall Score</span>
+          </div>
+        </div>
+
+        <div class="score-breakdown">
+          <div class="score-item">
+            <span>Questions Answered</span>
+            <span id="answeredCount">0/8</span>
+          </div>
+          <div class="score-item">
+            <span>Avg Answer Quality</span>
+            <span id="avgQuality">0%</span>
+          </div>
+          <div class="score-item">
+            <span>Warnings Received</span>
+            <span id="warningsCount">0</span>
+          </div>
+          <div class="score-item">
+            <span>Interview Status</span>
+            <span id="interviewStatus">Completed</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Question by Question Review -->
+      <div class="review-section">
+        <h2>📝 Detailed Review</h2>
+        <div id="reviewList"></div>
+      </div>
+
+      <!-- Overall Feedback -->
+      <div class="feedback-section">
+        <h2>💡 AI Feedback</h2>
+        <div id="overallFeedback"></div>
+      </div>
+
+      <div class="results-actions">
+        <button class="btn-primary" onclick="retakeInterview()">🔄 Retake Interview</button>
+        <a href="interview-prep.html" class="btn-secondary">📚 Practice More</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/live-interview.js"></script>
+</body>
+</html>
