@@ -196,13 +196,16 @@ function speakQuestion(text) {
     document.getElementById('recordBtn').disabled = true;
   };
 
-  utterance.onend = () => {
+utterance.onend = () => {
     mouth.classList.remove('speaking');
     speaking.style.display = 'none';
     document.getElementById('recordBtn').disabled = false;
     startTimer();
+    // Auto start recording
+    setTimeout(() => {
+      startRecording();
+    }, 500);
   };
-
   window.speechSynthesis.speak(utterance);
 }
 
@@ -255,7 +258,7 @@ function stopRecording() {
     interviewState.isRecording = false;
   }
 
-  document.getElementById('recordBtn').textContent = '🎤 Start Speaking';
+  document.getElementById('recordBtn').textContent = '⏹️ Stop Recording';
   document.getElementById('recordBtn').classList.remove('recording');
   document.getElementById('statusRecording').style.display = 'none';
   document.getElementById('statusProcessing').style.display = 'block';
