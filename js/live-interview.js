@@ -270,8 +270,35 @@ function toggleRecording() {
 }
 
 function submitAnswer() {
+  // Capture transcript BEFORE stopping recognition
+  const capturedAnswer = interviewState.currentTranscript.trim() || 
+    document.getElementById('userAnswerText').textContent.trim();
+  
   stopSpeechRecognition();
   clearInterval(interviewState.timer);
+
+  document.getElementById('recordBtn').disabled = true;
+  document.getElementById('recordBtn').classList.remove('recording');
+  document.getElementById('statusRecording').style.display = 'none';
+  document.getElementById('statusProcessing').style.display = 'block';
+
+  setTimeout(() => {
+    document.getElementById('statusProcessing').style.display = 'none';
+
+    if (!capturedAnswer || capturedAnswer.length < 3) {
+      document.getElementById('userAnswerText').textContent = 'No answer detected. Please speak clearly next time.';
+      document.getElementById('answerTextBox').style.display = 'block';
+      scoreAndSaveAnswer('');
+    } else {
+      document.getElementById('userAnswerText').textContent = capturedAnswer;
+      document.getElementById('answerTextBox').style.display = 'block';
+      scoreAndSaveAnswer(capturedAnswer);
+    }
+
+    document.getElementById('nextBtn').style.display = 'block';
+    document.getElementById('recordBtn').textContent = '✅ Answer Submitted';
+  }, 1500);
+}
 
   document.getElementById('recordBtn').disabled = true;
   document.getElementById('recordBtn').classList.remove('recording');
