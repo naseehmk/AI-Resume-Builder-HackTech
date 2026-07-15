@@ -608,3 +608,13 @@
   .score-section { grid-template-columns: 1fr; text-align: center; }
   .score-circle { margin: 0 auto; }
 }
+.review-model-answer {
+  font-size: 0.82rem;
+  color: #34d399;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(52,211,153,0.05);
+  border-left: 3px solid #34d399;
+  border-radius: 0 4px 4px 0;
+  line-height: 1.6;
+}
