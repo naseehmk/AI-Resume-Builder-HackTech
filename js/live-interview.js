@@ -51,7 +51,7 @@ const questionBanks = {
     { q: "Give an example of a time when you showed leadership.", type: "BEHAVIORAL", answer: "During a college event, I volunteered to lead the technical team responsible for setting up the registration system. I assigned tasks based on each member's strengths, resolved conflicts, and ensured everything ran smoothly on the day. The event was a success and my team appreciated the clear direction." },
     { q: "Tell me about a time you made a mistake and what you learned from it.", type: "BEHAVIORAL", answer: "Early in my internship, I accidentally deleted some code without having a backup. I learned the hard way why version control with Git is so important. After that, I made it a habit to commit code regularly and maintain proper backups. This mistake taught me discipline and the importance of good development practices." },
     { q: "Describe a situation where you had to meet a tight deadline.", type: "BEHAVIORAL", answer: "During my HACKTECH internship, I had to deliver a working AI web application within a month. I broke the project into daily tasks, focused on core features first, and kept testing regularly. By staying organized and disciplined, I completed the project on time with all required features working." },
-    { q: "Give an example of a time you went above and beyond what was expected.", type: "BEHAVIORAL", answer: "My internship project only required a basic resume builder, but I went beyond by adding an Interview Prep feature, a Cover Letter Generator, and a Live Interview Simulator with cheating detection. I also implemented a secure API proxy using Cloudflare Workers. This showed my initiative and commitment to delivering more value." }
+    { q: "Give an example of a time you went above and beyond what was expected.", type: "BEHAVIORAL", answer: "My internship project only required a basic resume builder and interview prep, but I went beyond by adding a Cover Letter Generator, and a Live Interview Simulator with cheating detection. I also implemented a secure API proxy using Cloudflare Workers. This showed my initiative and commitment to delivering more value." }
   ]
 };
 };
@@ -536,6 +536,7 @@ function showResults(terminated) {
         <p class="review-question">${item.q}</p>
         <p class="review-answer"><strong>Your answer:</strong> ${item.a || 'No answer'}</p>
         <p class="review-feedback">💡 ${item.feedback}</p>
+        ${item.score < 70 ? `<p class="review-model-answer">📖 <strong>Model Answer:</strong> ${interviewState.questions[i]?.answer || ''}</p>` : ''}
       </div>`;
   }).join('');
 
