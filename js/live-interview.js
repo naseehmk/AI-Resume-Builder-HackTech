@@ -388,10 +388,86 @@ function updateTimerDisplay() {
   el.classList.toggle('urgent', interviewState.timeLeft <= 30);
 }
 
-// ===== CHEATING DETECTION =====
-function startCheatingDetection() {
+async function startCheatingDetection() {
   document.addEventListener('visibilitychange', onVisibilityChange);
   window.addEventListener('blur', onWindowBlur);
+  
+  // Load face detection models
+  try {
+    await faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/gh/justadudewhohacks/face-api.js@0.22.2/weights');
+    await faceapi.nets.faceLandmark68TinyNet.loadFromUri('https://cdn.jsdelivr.net/gh/justadudewhohacks/face-api.js@0.22.2/weights');
+    startFaceTracking();
+  } catch(e) {
+    console.log('Face detection not loaded:', e);
+  }
+}
+
+function startFaceTracking() {
+  const video = document.getElementById('webcam');
+  let noFaceCount = 0;
+  let lookAwayCount = 0;
+
+  setInterval(async () => {
+    if (interviewState.terminated) return;
+
+    try {
+      const detection = await faceapi.detectSingleFace(
+        video, 
+        new faceapi.TinyFaceDetectorOptions()
+      ).withFaceLandmarks(true);
+
+      const eyeStatus = document.getElementById('eyeStatus');
+
+      if (!detection) {
+        noFaceCount++;
+        eyeStatus.textContent = '⚠️ Face not detected!';
+        eyeStatus.className = 'eye-status warning';
+        
+        if (noFaceCount >= 5) {
+          noFaceCount = 0;
+          triggerWarning('Face not detected — please stay in front of the camera!');
+        }
+      } else {
+        noFaceCount = 0;
+        
+        // Check eye positions
+        const landmarks = detection.landmarks;
+        const leftEye = landmarks.getLeftEye();
+        const rightEye = landmarks.getRightEye();
+        
+        // Calculate eye center
+        const leftCenter = leftEye.reduce((a,b) => ({x: a.x+b.x, y: a.y+b.y}), {x:0,y:0});
+        leftCenter.x /= leftEye.length;
+        leftCenter.y /= leftEye.length;
+        
+        const rightCenter = rightEye.reduce((a,b) => ({x: a.x+b.x, y: a.y+b.y}), {x:0,y:0});
+        rightCenter.x /= rightEye.length;
+        rightCenter.y /= rightEye.length;
+
+        // Check if looking away (eyes too far to sides)
+        const faceBox = detection.detection.box;
+        const eyeXRatio = ((leftCenter.x + rightCenter.x) / 2) / faceBox.width;
+        
+        if (eyeXRatio < 0.2 || eyeXRatio > 0.8) {
+          lookAwayCount++;
+          eyeStatus.textContent = '👀 Looking away!';
+          eyeStatus.className = 'eye-status warning';
+          
+          if (lookAwayCount >= 8) {
+            lookAwayCount = 0;
+            triggerWarning('Please look at the screen!');
+          }
+        } else {
+          lookAwayCount = 0;
+          eyeStatus.textContent = '✅ Eye contact good';
+          eyeStatus.className = 'eye-status';
+        }
+      }
+    } catch(e) {
+      console.log('Detection error:', e);
+    }
+  }, 1000);
+}
 }
 
 function onVisibilityChange() {
