@@ -1,3 +1,8 @@
+// =============================================
+// LIVE-INTERVIEW.JS - Final Version
+// All fixes included
+// =============================================
+
 let interviewState = {
   name: '',
   role: '',
@@ -115,6 +120,7 @@ function generateQuestions(type, count) {
 }
 
 function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
+
 function getTypeLabel(type) {
   return { mixed: 'Mixed Interview', technical: 'Technical Interview', hr: 'HR Interview', behavioral: 'Behavioral Interview' }[type] || 'Interview';
 }
@@ -123,7 +129,6 @@ function getTypeLabel(type) {
 function loadQuestion(index) {
   if (interviewState.terminated) return;
 
-  // Stop any ongoing recording first
   stopSpeechRecognition();
   interviewState.currentTranscript = '';
   clearInterval(interviewState.timer);
@@ -138,7 +143,7 @@ function loadQuestion(index) {
   document.getElementById('answerTextBox').style.display = 'none';
   document.getElementById('userAnswerText').textContent = '';
   document.getElementById('nextBtn').style.display = 'none';
-  document.getElementById('recordBtn').textContent = '⏳ Waiting...';
+  document.getElementById('recordBtn').textContent = '⏳ Listen to question...';
   document.getElementById('recordBtn').disabled = true;
   document.getElementById('recordBtn').classList.remove('recording');
   document.getElementById('statusWaiting').style.display = 'block';
@@ -169,10 +174,7 @@ function speakQuestion(text) {
   utterance.onend = () => {
     mouth.classList.remove('speaking');
     speaking.style.display = 'none';
-    // Auto start recording after question is spoken
-    setTimeout(() => {
-      autoStartRecording();
-    }, 800);
+    setTimeout(() => autoStartRecording(), 800);
   };
 
   utterance.onerror = () => {
@@ -190,7 +192,7 @@ function autoStartRecording() {
 
   document.getElementById('statusWaiting').style.display = 'none';
   document.getElementById('statusRecording').style.display = 'flex';
-  document.getElementById('recordBtn').textContent = '⏹️ Stop & Submit';
+  document.getElementById('recordBtn').textContent = '⏹️ Stop & Submit Answer';
   document.getElementById('recordBtn').disabled = false;
   document.getElementById('recordBtn').classList.add('recording');
 
@@ -224,15 +226,16 @@ function startSpeechRecognition() {
       }
     }
 
-    interviewState.currentTranscript = finalTranscript || interimTranscript;
-    document.getElementById('userAnswerText').textContent = interviewState.currentTranscript;
-    document.getElementById('answerTextBox').style.display = 'block';
+    const fullTranscript = (finalTranscript + interimTranscript).trim();
+    if (fullTranscript) {
+      interviewState.currentTranscript = fullTranscript;
+      document.getElementById('userAnswerText').textContent = fullTranscript;
+      document.getElementById('answerTextBox').style.display = 'block';
+    }
   };
 
   interviewState.recognition.onerror = (e) => {
-    console.log('Speech error:', e.error);
-    if (e.error === 'no-speech') {
-      // Restart recognition if no speech detected
+    if (e.error === 'no-speech' && interviewState.isRecording) {
       setTimeout(() => {
         if (interviewState.isRecording) {
           try { interviewState.recognition.start(); } catch(err) {}
@@ -262,18 +265,16 @@ function stopSpeechRecognition() {
   }
 }
 
-// ===== TOGGLE RECORDING (manual stop button) =====
+// ===== TOGGLE RECORDING =====
 function toggleRecording() {
-  if (interviewState.isRecording) {
-    submitAnswer();
-  }
+  if (interviewState.isRecording) submitAnswer();
 }
 
 function submitAnswer() {
-  // Capture transcript BEFORE stopping recognition
-  const capturedAnswer = interviewState.currentTranscript.trim() || 
+  // Capture answer BEFORE stopping recognition
+  const capturedAnswer = interviewState.currentTranscript.trim() ||
     document.getElementById('userAnswerText').textContent.trim();
-  
+
   stopSpeechRecognition();
   clearInterval(interviewState.timer);
 
@@ -300,35 +301,13 @@ function submitAnswer() {
   }, 1500);
 }
 
-  document.getElementById('recordBtn').disabled = true;
-  document.getElementById('recordBtn').classList.remove('recording');
-  document.getElementById('statusRecording').style.display = 'none';
-  document.getElementById('statusProcessing').style.display = 'block';
-
-  // Save the final answer
-  const finalAnswer = interviewState.currentTranscript.trim() || document.getElementById('userAnswerText').textContent.trim();
-
-  setTimeout(() => {
-    document.getElementById('statusProcessing').style.display = 'none';
-
-    if (!finalAnswer || finalAnswer.length < 3) {
-      document.getElementById('userAnswerText').textContent = 'No answer detected. Please speak clearly.';
-      document.getElementById('answerTextBox').style.display = 'block';
-    }
-
-    scoreAndSaveAnswer(finalAnswer);
-    document.getElementById('nextBtn').style.display = 'block';
-    document.getElementById('recordBtn').textContent = '✅ Answer Submitted';
-  }, 1500);
-}
-
 // ===== SCORING =====
 function scoreAndSaveAnswer(answerText) {
   const question = interviewState.questions[interviewState.currentQ];
   const qType = question.type.toLowerCase();
   const text = answerText.toLowerCase();
 
-  if (!answerText || answerText.length < 5 || answerText === 'No answer detected. Please speak clearly.') {
+  if (!answerText || answerText.length < 5) {
     interviewState.scores.push(0);
     interviewState.answers.push({ q: question.q, a: 'No answer provided', score: 0, feedback: 'No answer was detected. Make sure to speak clearly into your microphone.' });
     return;
@@ -366,7 +345,6 @@ function startTimer() {
   interviewState.timer = setInterval(() => {
     interviewState.timeLeft--;
     updateTimerDisplay();
-
     if (interviewState.timeLeft <= 0) {
       clearInterval(interviewState.timer);
       submitAnswer();
@@ -388,17 +366,19 @@ function updateTimerDisplay() {
   el.classList.toggle('urgent', interviewState.timeLeft <= 30);
 }
 
+// ===== CHEATING DETECTION =====
 async function startCheatingDetection() {
+  // Tab/window detection
   document.addEventListener('visibilitychange', onVisibilityChange);
   window.addEventListener('blur', onWindowBlur);
-  
-  // Load face detection models
+
+  // Face detection using face-api.js
   try {
     await faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/gh/justadudewhohacks/face-api.js@0.22.2/weights');
     await faceapi.nets.faceLandmark68TinyNet.loadFromUri('https://cdn.jsdelivr.net/gh/justadudewhohacks/face-api.js@0.22.2/weights');
     startFaceTracking();
   } catch(e) {
-    console.log('Face detection not loaded:', e);
+    console.log('Face detection unavailable:', e);
   }
 }
 
@@ -411,10 +391,9 @@ function startFaceTracking() {
     if (interviewState.terminated) return;
 
     try {
-      const detection = await faceapi.detectSingleFace(
-        video, 
-        new faceapi.TinyFaceDetectorOptions()
-      ).withFaceLandmarks(true);
+      const detection = await faceapi
+        .detectSingleFace(video, new faceapi.TinyFaceDetectorOptions())
+        .withFaceLandmarks(true);
 
       const eyeStatus = document.getElementById('eyeStatus');
 
@@ -422,40 +401,30 @@ function startFaceTracking() {
         noFaceCount++;
         eyeStatus.textContent = '⚠️ Face not detected!';
         eyeStatus.className = 'eye-status warning';
-        
         if (noFaceCount >= 5) {
           noFaceCount = 0;
           triggerWarning('Face not detected — please stay in front of the camera!');
         }
       } else {
         noFaceCount = 0;
-        
-        // Check eye positions
         const landmarks = detection.landmarks;
         const leftEye = landmarks.getLeftEye();
         const rightEye = landmarks.getRightEye();
-        
-        // Calculate eye center
-        const leftCenter = leftEye.reduce((a,b) => ({x: a.x+b.x, y: a.y+b.y}), {x:0,y:0});
-        leftCenter.x /= leftEye.length;
-        leftCenter.y /= leftEye.length;
-        
-        const rightCenter = rightEye.reduce((a,b) => ({x: a.x+b.x, y: a.y+b.y}), {x:0,y:0});
-        rightCenter.x /= rightEye.length;
-        rightCenter.y /= rightEye.length;
 
-        // Check if looking away (eyes too far to sides)
-        const faceBox = detection.detection.box;
-        const eyeXRatio = ((leftCenter.x + rightCenter.x) / 2) / faceBox.width;
-        
-        if (eyeXRatio < 0.2 || eyeXRatio > 0.8) {
+        const leftCenterX = leftEye.reduce((a,b) => a + b.x, 0) / leftEye.length;
+        const rightCenterX = rightEye.reduce((a,b) => a + b.x, 0) / rightEye.length;
+        const faceWidth = detection.detection.box.width;
+        const faceX = detection.detection.box.x;
+        const eyeMidX = (leftCenterX + rightCenterX) / 2;
+        const relativePos = (eyeMidX - faceX) / faceWidth;
+
+        if (relativePos < 0.25 || relativePos > 0.75) {
           lookAwayCount++;
           eyeStatus.textContent = '👀 Looking away!';
           eyeStatus.className = 'eye-status warning';
-          
           if (lookAwayCount >= 8) {
             lookAwayCount = 0;
-            triggerWarning('Please look at the screen!');
+            triggerWarning('Please look at the screen — do not look away!');
           }
         } else {
           lookAwayCount = 0;
@@ -463,11 +432,8 @@ function startFaceTracking() {
           eyeStatus.className = 'eye-status';
         }
       }
-    } catch(e) {
-      console.log('Detection error:', e);
-    }
+    } catch(e) {}
   }, 1000);
-}
 }
 
 function onVisibilityChange() {
