@@ -54,7 +54,7 @@ const questionBanks = {
     { q: "Give an example of a time you went above and beyond what was expected.", type: "BEHAVIORAL", answer: "My internship project only required a basic resume builder and interview prep, but I went beyond by adding a Cover Letter Generator, and a Live Interview Simulator with cheating detection. I also implemented a secure API proxy using Cloudflare Workers. This showed my initiative and commitment to delivering more value." }
   ]
 };
-};
+
 
 const keywords = {
   technical: ['code', 'programming', 'function', 'variable', 'data', 'system', 'develop', 'software', 'design', 'implement', 'algorithm', 'database', 'server', 'client', 'html', 'css', 'javascript', 'python', 'java', 'api', 'git', 'debug', 'test', 'framework', 'library'],
