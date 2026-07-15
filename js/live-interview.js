@@ -24,35 +24,36 @@ let interviewState = {
 
 const questionBanks = {
   technical: [
-    { q: "What is the difference between HTML, CSS, and JavaScript? Explain each briefly.", type: "TECHNICAL" },
-    { q: "What is a variable in programming? Give an example.", type: "TECHNICAL" },
-    { q: "Explain what a function is and why we use functions in programming.", type: "TECHNICAL" },
-    { q: "What is the difference between a class and an object in OOP?", type: "TECHNICAL" },
-    { q: "What is an API and how does it work?", type: "TECHNICAL" },
-    { q: "Explain what Git is and why version control is important.", type: "TECHNICAL" },
-    { q: "What is responsive web design?", type: "TECHNICAL" },
-    { q: "What is the difference between frontend and backend development?", type: "TECHNICAL" },
-    { q: "What is a database? Give examples of database management systems.", type: "TECHNICAL" },
-    { q: "What is debugging? How do you approach fixing a bug in your code?", type: "TECHNICAL" }
+    { q: "What is the difference between HTML, CSS, and JavaScript? Explain each briefly.", type: "TECHNICAL", answer: "HTML provides the structure of a webpage using elements like headings, paragraphs and buttons. CSS handles the styling and appearance like colors, fonts and layout. JavaScript adds interactivity and logic like button clicks, form validation and API calls. Together, HTML is the skeleton, CSS is the clothes, and JavaScript is the brain." },
+    { q: "What is a variable in programming? Give an example.", type: "TECHNICAL", answer: "A variable is a container that stores data values in a program. For example, in JavaScript: let name = 'Naseeh'; stores the value 'Naseeh' in a variable called name. Variables can store numbers, text, booleans and other data types." },
+    { q: "Explain what a function is and why we use functions in programming.", type: "TECHNICAL", answer: "A function is a reusable block of code that performs a specific task. We use functions to avoid repeating code, organize our program into smaller parts, and make code easier to maintain. For example, a function called calculateArea() can be called multiple times instead of writing the same formula repeatedly." },
+    { q: "What is the difference between a class and an object in OOP?", type: "TECHNICAL", answer: "A class is a blueprint or template that defines properties and methods. An object is an instance of a class — the actual thing created from the blueprint. For example, 'Car' is a class with properties like color and speed. A specific car like 'myRedCar' is an object created from that class." },
+    { q: "What is an API and how does it work?", type: "TECHNICAL", answer: "API stands for Application Programming Interface. It allows two different applications to communicate with each other. For example, when you use a weather app, it sends a request to a weather API which returns the current weather data. APIs work through requests and responses using protocols like HTTP." },
+    { q: "Explain what Git is and why version control is important.", type: "TECHNICAL", answer: "Git is a version control system that tracks changes in code over time. Version control is important because it allows developers to save different versions of their code, collaborate with team members, revert to previous versions if something breaks, and track who made what changes and when." },
+    { q: "What is responsive web design?", type: "TECHNICAL", answer: "Responsive web design is an approach where a website automatically adjusts its layout and content to look good on all screen sizes — from mobile phones to tablets to desktop computers. This is achieved using CSS techniques like media queries, flexible grids, and flexible images." },
+    { q: "What is the difference between frontend and backend development?", type: "TECHNICAL", answer: "Frontend development deals with everything the user sees and interacts with in the browser — like HTML, CSS and JavaScript. Backend development handles the server side — databases, APIs, authentication and business logic. Frontend is the face of the application while backend is the brain behind it." },
+    { q: "What is a database? Give examples of database management systems.", type: "TECHNICAL", answer: "A database is an organized collection of structured data that can be easily accessed, managed and updated. Examples of database management systems include MySQL, PostgreSQL, MongoDB, SQLite and Oracle. Databases are used to store user information, product data, transactions and more." },
+    { q: "What is debugging? How do you approach fixing a bug in your code?", type: "TECHNICAL", answer: "Debugging is the process of finding and fixing errors or bugs in code. My approach is to first reproduce the error, then read the error message carefully, use console.log or a debugger to trace the problem, identify the root cause, fix it, and test again to make sure it is resolved." }
   ],
   hr: [
-    { q: "Tell me about yourself and your background.", type: "HR" },
-    { q: "Why are you interested in this role?", type: "HR" },
-    { q: "Where do you see yourself in 5 years?", type: "HR" },
-    { q: "What are your greatest strengths?", type: "HR" },
-    { q: "What is your biggest weakness and how are you working on it?", type: "HR" },
-    { q: "Why should we hire you over other candidates?", type: "HR" },
-    { q: "What motivates you to do your best work?", type: "HR" },
-    { q: "How do you handle stress and pressure?", type: "HR" }
+    { q: "Tell me about yourself and your background.", type: "HR", answer: "I am a BTech Computer Science student at Amity University Haryana with a CGPA of 7.9. I have a strong foundation in programming with skills in C, C++, HTML, CSS and JavaScript. I recently built an AI-powered Resume Builder during my HACKTECH internship. I am passionate about web development and eager to contribute to real-world projects." },
+    { q: "Why are you interested in this role?", type: "HR", answer: "I am interested in this role because it aligns perfectly with my skills and career goals in web development. I am excited about the opportunity to work on real projects, learn from experienced professionals, and contribute meaningfully to the team. This role will help me grow both technically and professionally." },
+    { q: "Where do you see yourself in 5 years?", type: "HR", answer: "In 5 years, I see myself as a skilled full-stack developer working on impactful products. I plan to deepen my expertise in modern frameworks, take on leadership responsibilities, and possibly mentor junior developers. I want to continue learning and growing with a company that values innovation." },
+    { q: "What are your greatest strengths?", type: "HR", answer: "My greatest strengths are my ability to learn quickly, my strong problem-solving skills, and my dedication to quality work. I am also a good team player who communicates clearly. During my internship, I demonstrated these strengths by building a complete AI web application from scratch within a short timeframe." },
+    { q: "What is your biggest weakness and how are you working on it?", type: "HR", answer: "My biggest weakness is that I sometimes spend too much time trying to perfect something before moving on. I am working on this by setting time limits for tasks and focusing on getting things done first, then refining. This has helped me become more productive and deliver work on time." },
+    { q: "Why should we hire you over other candidates?", type: "HR", answer: "You should hire me because I bring a combination of technical skills, a strong work ethic, and a genuine passion for development. I have hands-on experience building real projects, I learn quickly, and I am highly motivated to contribute from day one. I am also a team player who adapts well to new environments." },
+    { q: "What motivates you to do your best work?", type: "HR", answer: "I am motivated by the impact my work can have on real users. When I see someone use something I built and it helps them, that is very fulfilling. I am also motivated by continuous learning — every project teaches me something new and pushes me to improve my skills." },
+    { q: "How do you handle stress and pressure?", type: "HR", answer: "I handle stress by breaking large problems into smaller manageable tasks and focusing on one thing at a time. I also prioritize tasks by urgency and importance. Taking short breaks helps me stay focused. During my internship, I managed multiple deliverables under tight deadlines by staying organized and communicating proactively." }
   ],
   behavioral: [
-    { q: "Tell me about a time when you faced a challenge and how you overcame it.", type: "BEHAVIORAL" },
-    { q: "Describe a situation where you had to work as part of a team.", type: "BEHAVIORAL" },
-    { q: "Give an example of a time when you showed leadership.", type: "BEHAVIORAL" },
-    { q: "Tell me about a time you made a mistake and what you learned from it.", type: "BEHAVIORAL" },
-    { q: "Describe a situation where you had to meet a tight deadline.", type: "BEHAVIORAL" },
-    { q: "Give an example of a time you went above and beyond what was expected.", type: "BEHAVIORAL" }
+    { q: "Tell me about a time when you faced a challenge and how you overcame it.", type: "BEHAVIORAL", answer: "During my HACKTECH internship, I faced a major challenge when the Gemini API stopped working in my region. I researched alternatives, tried multiple APIs, and eventually solved it using the Groq API with a Cloudflare Workers proxy to secure the key. This taught me persistence and creative problem solving." },
+    { q: "Describe a situation where you had to work as part of a team.", type: "BEHAVIORAL", answer: "During a group project at university, our team had to build a software solution under a tight deadline. I took responsibility for coordinating tasks, ensuring clear communication, and helping team members who were stuck. We completed the project on time and received good feedback from our professor." },
+    { q: "Give an example of a time when you showed leadership.", type: "BEHAVIORAL", answer: "During a college event, I volunteered to lead the technical team responsible for setting up the registration system. I assigned tasks based on each member's strengths, resolved conflicts, and ensured everything ran smoothly on the day. The event was a success and my team appreciated the clear direction." },
+    { q: "Tell me about a time you made a mistake and what you learned from it.", type: "BEHAVIORAL", answer: "Early in my internship, I accidentally deleted some code without having a backup. I learned the hard way why version control with Git is so important. After that, I made it a habit to commit code regularly and maintain proper backups. This mistake taught me discipline and the importance of good development practices." },
+    { q: "Describe a situation where you had to meet a tight deadline.", type: "BEHAVIORAL", answer: "During my HACKTECH internship, I had to deliver a working AI web application within a month. I broke the project into daily tasks, focused on core features first, and kept testing regularly. By staying organized and disciplined, I completed the project on time with all required features working." },
+    { q: "Give an example of a time you went above and beyond what was expected.", type: "BEHAVIORAL", answer: "My internship project only required a basic resume builder, but I went beyond by adding an Interview Prep feature, a Cover Letter Generator, and a Live Interview Simulator with cheating detection. I also implemented a secure API proxy using Cloudflare Workers. This showed my initiative and commitment to delivering more value." }
   ]
+};
 };
 
 const keywords = {
