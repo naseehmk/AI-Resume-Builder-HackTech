@@ -1,3 +1,8 @@
+// =============================================
+// LIVE-INTERVIEW.JS - Final Version
+// All fixes included
+// =============================================
+
 let interviewState = {
   name: '',
   role: '',
@@ -196,12 +201,30 @@ function autoStartRecording() {
   startTimer();
 }
 
+// ===== ON-PAGE DEBUG STATUS (visible without DevTools) =====
+function showDebugStatus(text, isError) {
+  let box = document.getElementById('speechDebugStatus');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'speechDebugStatus';
+    box.style.cssText = 'position:fixed;bottom:16px;left:16px;right:16px;max-width:500px;margin:0 auto;' +
+      'background:#1a1a2e;border:2px solid #7c3aed;border-radius:10px;padding:12px 16px;' +
+      'font-family:monospace;font-size:13px;color:#e0e0e0;z-index:99999;box-shadow:0 4px 20px rgba(0,0,0,0.5);';
+    document.body.appendChild(box);
+  }
+  box.style.borderColor = isError ? '#ef4444' : '#7c3aed';
+  const time = new Date().toLocaleTimeString();
+  box.innerHTML = `<strong style="color:${isError ? '#ef4444' : '#a78bfa'}">🎤 Mic Status [${time}]:</strong><br>${text}`;
+}
+
 // ===== SPEECH RECOGNITION =====
 function startSpeechRecognition() {
   if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
     alert('Speech recognition not supported. Please use Chrome browser.');
     return;
   }
+
+  showDebugStatus('Initializing recognition...', false);
 
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   interviewState.recognition = new SpeechRecognition();
@@ -213,15 +236,22 @@ function startSpeechRecognition() {
 
   interviewState.recognition.onstart = () => {
     console.log('[SpeechRecognition] started — listening for audio');
+    showDebugStatus('Recognition started. Waiting for mic audio...', false);
   };
 
   interviewState.recognition.onaudiostart = () => {
     console.log('[SpeechRecognition] audio capture started (mic stream is flowing)');
+    showDebugStatus('Mic audio is flowing into the recognizer. Waiting to detect your voice...', false);
   };
 
   interviewState.recognition.onspeechstart = () => {
     interviewState.speechEverDetected = true;
     console.log('[SpeechRecognition] speech detected — recognizing...');
+    showDebugStatus('✅ Your voice WAS detected. Recognizing speech now...', false);
+  };
+
+  interviewState.recognition.onspeechend = () => {
+    showDebugStatus('Voice stopped. Waiting for next result or restart...', false);
   };
 
   interviewState.recognition.onresult = (event) => {
@@ -241,6 +271,7 @@ function startSpeechRecognition() {
       interviewState.currentTranscript = fullTranscript;
       document.getElementById('userAnswerText').textContent = fullTranscript;
       document.getElementById('answerTextBox').style.display = 'block';
+      showDebugStatus(`✅ Transcript captured (${fullTranscript.length} chars): "${fullTranscript.slice(0, 60)}..."`, false);
     }
   };
 
@@ -248,7 +279,7 @@ function startSpeechRecognition() {
     console.error('[SpeechRecognition] error:', e.error);
 
     if (e.error === 'no-speech') {
-      // Benign — happens during natural pauses. Auto-restart handles it via onend.
+      showDebugStatus('⚠️ "no-speech" — recognizer is running but detects total silence. This usually means the wrong microphone is set as your system default, or the mic is muted/too quiet.', true);
       return;
     }
 
@@ -264,6 +295,7 @@ function startSpeechRecognition() {
     const message = errorMessages[e.error] || `Speech recognition error: ${e.error}`;
     document.getElementById('userAnswerText').textContent = `⚠️ ${message}`;
     document.getElementById('answerTextBox').style.display = 'block';
+    showDebugStatus(`❌ ERROR: ${message}`, true);
 
     // Don't loop-retry on errors that won't self-resolve.
     if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
