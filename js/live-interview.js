@@ -1,8 +1,3 @@
-// =============================================
-// LIVE-INTERVIEW.JS - Final Version
-// All fixes included
-// =============================================
-
 let interviewState = {
   name: '',
   role: '',
@@ -214,6 +209,20 @@ function startSpeechRecognition() {
   interviewState.recognition.interimResults = true;
   interviewState.recognition.lang = 'en-US';
   interviewState.isRecording = true;
+  interviewState.speechEverDetected = false;
+
+  interviewState.recognition.onstart = () => {
+    console.log('[SpeechRecognition] started — listening for audio');
+  };
+
+  interviewState.recognition.onaudiostart = () => {
+    console.log('[SpeechRecognition] audio capture started (mic stream is flowing)');
+  };
+
+  interviewState.recognition.onspeechstart = () => {
+    interviewState.speechEverDetected = true;
+    console.log('[SpeechRecognition] speech detected — recognizing...');
+  };
 
   interviewState.recognition.onresult = (event) => {
     let finalTranscript = '';
@@ -236,16 +245,34 @@ function startSpeechRecognition() {
   };
 
   interviewState.recognition.onerror = (e) => {
-    if (e.error === 'no-speech' && interviewState.isRecording) {
-      setTimeout(() => {
-        if (interviewState.isRecording) {
-          try { interviewState.recognition.start(); } catch(err) {}
-        }
-      }, 1000);
+    console.error('[SpeechRecognition] error:', e.error);
+
+    if (e.error === 'no-speech') {
+      // Benign — happens during natural pauses. Auto-restart handles it via onend.
+      return;
+    }
+
+    // Serious errors: surface them instead of failing silently.
+    const errorMessages = {
+      'not-allowed': 'Microphone access was blocked. Click the padlock icon in your address bar, set Microphone to "Allow", then refresh the page.',
+      'audio-capture': 'No microphone was found. Check that a mic is connected and set as your system\'s default input device.',
+      'network': 'Speech recognition needs an internet connection to reach Google\'s recognition service. Check your connection (VPNs/firewalls can block this).',
+      'aborted': 'Speech recognition was interrupted.',
+      'service-not-allowed': 'The browser blocked the speech recognition service. Try again or check your browser\'s site settings.',
+    };
+
+    const message = errorMessages[e.error] || `Speech recognition error: ${e.error}`;
+    document.getElementById('userAnswerText').textContent = `⚠️ ${message}`;
+    document.getElementById('answerTextBox').style.display = 'block';
+
+    // Don't loop-retry on errors that won't self-resolve.
+    if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+      interviewState.isRecording = false;
     }
   };
 
   interviewState.recognition.onend = () => {
+    console.log('[SpeechRecognition] ended. Speech ever detected this session:', interviewState.speechEverDetected);
     if (interviewState.isRecording) {
       try { interviewState.recognition.start(); } catch(err) {}
     }
